@@ -366,29 +366,35 @@ app.get("/", (req, res) => {
 });
 // Antra užduotis
 app.get("/:model", (req, res) => {
-  const carBrandOwners = data.filter((array) => array.car === req.params.model);
+  const lowerCase = req.params.model.toUpperCase();
+  const carBrandOwners = data.filter((array) => array.car === lowerCase);
   res.send(carBrandOwners);
 });
 // Trečia užduotis
 app.get("/data/:id", (req, res) => {
-  const userId = Number(req.params.id);
-  const foundId = data.filter((array) => array.id === userId);
-  res.send(foundId);
+  //   const userId = Number(req.params.id);
+  //   const foundId = data.filter((array) => array.id === userId);
+  //   res.send(foundId);
+
+  const idFound = data.find((data) => data.id === parseInt(req.params.id));
+  if (!idFound)
+    res.status(404).send(`Such a ID: ${req.params.id}, doesnt exist`);
+  res.send(idFound);
 });
 
 // Ketvirta užduotis
-app.get("/data/email", (req, res) => {
-  const newEmailArray = data.filter((array) => array.email);
-  res.send(newEmailArray);
-});
 
 // Penkta užduotis
+
 app.get("/gender/female", (req, res) => {
   const females = [];
+
   const femaleFilter = data.filter((arr) => arr.gender === "Female");
+
   femaleFilter.forEach((female) => {
     females.push(`${female.first_name} ${female.last_name}`);
   });
+
   res.send(females);
 });
 
