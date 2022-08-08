@@ -366,20 +366,24 @@ app.get("/", (req, res) => {
 });
 // Antra užduotis
 app.get("/:model", (req, res) => {
-  const lowerCase = req.params.model.toUpperCase();
-  const carBrandOwners = data.filter((array) => array.car === lowerCase);
+  const carBrandOwners = data.filter(
+    (user) => user.car.toLowerCase() === req.params.model.toLowerCase()
+  );
   res.send(carBrandOwners);
 });
+
 // Trečia užduotis
 app.get("/data/:id", (req, res) => {
   //   const userId = Number(req.params.id);
   //   const foundId = data.filter((array) => array.id === userId);
   //   res.send(foundId);
 
-  const idFound = data.find((data) => data.id === parseInt(req.params.id));
-  if (!idFound)
+  const idFound = data.find((user) => user.id === parseInt(req.params.id));
+  if (!idFound) {
     res.status(404).send(`Such a ID: ${req.params.id}, doesnt exist`);
-  res.send(idFound);
+  } else {
+    res.send(idFound);
+  }
 });
 
 // Ketvirta užduotis
@@ -396,6 +400,12 @@ app.get("/gender/female", (req, res) => {
   });
 
   res.send(females);
+});
+
+app.get("/belekas", (req, res) => {
+  // const emails = data.map((data) => data.email);
+  // console.log(emails);
+  res.send("OK");
 });
 
 // END
