@@ -61,7 +61,7 @@ app.post("/pets", async (req, res) => {
       .collection("pets")
       .insertOne(req.body);
     await con.close();
-    return res.send(ataBaseResponse);
+    return res.send(dataBaseResponse);
   } catch (err) {
     res.status(500).send({ err });
   }
