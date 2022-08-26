@@ -13,14 +13,30 @@ const mysqlConfig = {
   port: "25060",
 };
 
-app.get("/", async (req, res) => {
+app.get("/shirts", async (req, res) => {
   try {
     const con = await mysql.createConnection(mysqlConfig);
-    console.log("Success: " + con);
 
-    con.execute('')
+    const response = await con.execute(
+      "SELECT * FROM defaultdb.shirts ORDER BY price ASC LIMIT 3;"
+    );
 
-    res.send("Success");
+    res.send(response[0]);
+    await con.end();
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+app.post("/shirts", async (req, res) => {
+  try {
+    const con = await mysql.createConnection(mysqlConfig);
+
+    const response = await con.execute(
+      `INSERT INTO shirts (brand,model,size,price) values ('${shirt.brand}', '${shirt.model}', '${shirt.size}', '${shirt.price}';`
+    );
+
+    res.send(response[0]);
     await con.end();
   } catch (e) {
     console.log(e);

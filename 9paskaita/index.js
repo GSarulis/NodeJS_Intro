@@ -8,7 +8,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const port = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;
 const uri = process.env.CONNECTION;
 const client = new MongoClient(uri);
 
@@ -51,5 +51,5 @@ app.get("/many", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });
