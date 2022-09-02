@@ -17,3 +17,5 @@ const handleSubmitCar = (event) => {
 
 const carForm = document.getElementById("car-form");
 carForm.addEventListener("submit", handleSubmitCar);
+
+console.log(typeof null);

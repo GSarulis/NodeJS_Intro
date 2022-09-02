@@ -1,13 +1,16 @@
-document.forms.addEventListener("submit", (e) => {
+"USE STRICT";
+
+const make = document.querySelector("form");
+make.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const name = document.querySelector("input[name=name]");
-  const age = Number(document.querySelector("input[name=age]"));
+  const name = document.querySelector("input[name=text]").value;
+  const age = document.querySelector("#selected2").value;
   const type = document.querySelector("#selected option:checked").value;
 
-  console.log(type);
+  console.log(name, age, type);
 
-  fetch("http://localhost:3000", {
+  fetch("http://localhost:3000/pets", {
     method: "POST",
     headers: {
       "Content-type": "application/json",
