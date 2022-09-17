@@ -7,8 +7,16 @@ app.use(cors()); // apsauga
 
 const { port } = require(`./config`);
 
-app.get("*", (req, res) => {
-  req.status(404).send(`Page not found`);
+const products = require(`./routes/products`);
+
+app.use(`/products/`, products);
+
+app.get(`/`, (req, res) => {
+  res.send({ msg: `Server is running` });
+});
+
+app.all("*", (req, res) => {
+  res.status(404).send({ error: "Page not found" });
 });
 
 app.listen(port, () => {
